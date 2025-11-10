@@ -8,13 +8,13 @@
     
     <style>
         :root {
-            --color-principal: #FFB842; /* Naranja del logo */
+            --color-principal: #FFB842;
             --color-principal-hover: #E6A73B;
-            --color-secundario: #5C5C5C; /* Gris del logo */
+            --color-secundario: #5C5C5C;
             --color-fondo: #FFFFFF;
             --color-texto: #333333;
             --color-claro: #F8F8F8;
-            --color-header-bg: var(--color-principal); /* Usamos el naranja del logo para el header */
+            --color-header-bg: transparent;
         }
 
         body {
@@ -29,7 +29,6 @@
             text-align: center;
         }
 
-        /* --- Estilo del Header (Barra Superior) --- */
         .header {
             width: 100%;
             background-color: var(--color-header-bg);
@@ -42,11 +41,9 @@
         .header-img {
             max-width: 250px;
             height: auto;
-            /* Aquí, idealmente, se usaría una versión blanca del logo si el header es de color */
-            filter: brightness(0) invert(1); /* Truco para que un logo oscuro parezca blanco */
+            filter: brightness(0) invert(1);
         }
         
-        /* --- Selector de Idioma Desplegable (Inspiración UVIGO) --- */
         .header-lang-container {
             position: fixed;
             top: 0;
@@ -79,8 +76,8 @@
             text-align: left;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             min-width: 150px;
-            display: none; /* Controlado por JS */
-            margin-top: 50px; /* Separar del botón */
+            display: none;
+            margin-top: 50px;
             border-radius: 0 0 4px 4px;
         }
 
@@ -110,7 +107,6 @@
             font-weight: bold;
         }
 
-        /* --- Panel Principal --- */
         .main-panel {
             padding: 40px;
             border-radius: 10px;
@@ -133,7 +129,6 @@
             line-height: 1.6;
         }
 
-        /* --- Animación de Carga (Spinner) --- */
         .loader {
             border: 5px solid var(--color-claro);
             border-top: 5px solid var(--color-principal);
@@ -148,7 +143,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* --- Sección de Contacto (como Iframe o Contenido) --- */
         .contact-section {
             padding-top: 15px;
             margin-top: 20px;
@@ -185,13 +179,12 @@
         <div class="header-lang-dropdown" id="dropdown">
             <p id="languageLabel" class="dropdown-language-label">Idioma</p>
             <hr style="margin: 0px; margin-bottom: 5px;" />
-            <div id="langLinks">
-                </div>
+            <div id="langLinks"></div>
         </div>
     </div>
     
     <div class="header">
-        <img class="header-img" src="/logo.png" alt="Logo Ferretería El Greco">
+        <img class="header-img" src="/logo.png" alt="Ferretería El Greco" onerror="this.alt='Ferretería El Greco'">
     </div>
 
     <div class="main-panel">
@@ -214,7 +207,6 @@
     </div>
 
     <script>
-        // --- Traducciones y Datos ---
         const LANGUAGES = {
             'es': 'Español',
             'en': 'English',
@@ -223,8 +215,8 @@
 
         const translations = {
             'es': {
-                title: "¡Volvemos enseguida!",
-                reason: "Estamos realizando una **actualización crítica** de nuestros sistemas informáticos para mejorar la seguridad y la experiencia de compra.",
+                title: "Mantenimiento Programado",
+                reason: "Estamos realizando una **actualización** de nuestros sistemas informáticos. Este proceso puede demorar 1 hora aproximadamente",
                 status: "En curso...",
                 languageLabel: "Idioma",
                 contactTitle1: "Departamento de Atención al Cliente",
@@ -246,7 +238,7 @@
             },
             'en': {
                 title: "We'll be right back!",
-                reason: "We are performing a **critical update** of our computer systems to improve security and the shopping experience.",
+                reason: "We are performing a **critical update**",
                 status: "In progress...",
                 languageLabel: "Language",
                 contactTitle1: "Customer Service Department",
@@ -268,117 +260,10 @@
             },
             'gl': {
                 title: "Voltamos de contado!",
-                reason: "Estamos a realizar unha **actualización crítica** dos nosos sistemas informáticos para mellorar a seguridade e a experiencia de compra.",
+                reason: "Estamos a realizar unha **actualización** dos nosos sistemas informáticos.",
                 status: "En curso...",
                 languageLabel: "Idioma",
                 contactTitle1: "Departamento de Atención ao Cliente",
                 contactTitle2: "Soporte de Plataformas",
                 contactInfo: {
-                    general: 'clientes@ferreteriaelgreco.es',
-                    profesional: 'profesionales@ferreteriaelgreco.es',
-                    phone: '988 23 15 18',
-                    soporte: 'soporteplataformas@ferreteriaelgreco.es',
-                    soportePhone: '632 11 80 63'
-                },
-                labels: {
-                    general: "Xeral:",
-                    profesional: "Profesionais:",
-                    phone: "Teléfono/WhatsApp:",
-                    email: "Email:",
-                    tel: "Teléfono:",
-                }
-            }
-        };
-
-        // --- Funciones del Dropdown ---
-        const dropdown = document.getElementById('dropdown');
-
-        function toggleDropdown() {
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        }
-
-        // Cierra el dropdown si se hace clic fuera
-        window.onclick = function(event) {
-            if (!event.target.closest('.header-lang-container')) {
-                dropdown.style.display = 'none';
-            }
-        }
-
-        // --- Lógica de Idioma ---
-
-        // Función para detectar el idioma del navegador o usar 'gl' como fallback
-        function getInitialLanguage() {
-            const navLang = navigator.language.substring(0, 2);
-            return translations[navLang] ? navLang : 'gl';
-        }
-
-        // Función principal para aplicar la traducción
-        function setLanguage(lang) {
-            const t = translations[lang];
-            const info = t.contactInfo;
-            const labels = t.labels;
-
-            // 1. Traducir textos principales
-            document.getElementById('title').textContent = `Ferretería El Greco - ${t.title}`;
-            document.getElementById('body_title').textContent = t.title;
-            // Usar innerHTML para mantener negritas (**)
-            document.getElementById('body').innerHTML = t.reason.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            document.getElementById('status').textContent = t.status;
-            document.getElementById('languageLabel').textContent = t.languageLabel;
-            
-            // 2. Traducir y actualizar la sección de contacto
-            document.getElementById('contact_title_1').textContent = t.contactTitle1;
-            document.getElementById('contact_title_2').textContent = t.contactTitle2;
-            
-            document.getElementById('contact_general').innerHTML = `<strong>${labels.general}</strong> <a href="mailto:${info.general}">${info.general}</a>`;
-            document.getElementById('contact_profesionales').innerHTML = `<strong>${labels.profesional}</strong> <a href="mailto:${info.profesional}">${info.profesional}</a>`;
-            document.getElementById('contact_phone').innerHTML = `<strong>${labels.phone}</strong> <a href="tel:+34${info.phone.replace(/\s/g, '')}">${info.phone}</a>`;
-            
-            document.getElementById('contact_soporte_email').innerHTML = `<strong>${labels.email}</strong> <a href="mailto:${info.soporte}">${info.soporte}</a>`;
-            document.getElementById('contact_soporte_phone').innerHTML = `<strong>${labels.tel}</strong> <a href="tel:+34${info.soportePhone}">${info.soportePhone}</a>`;
-
-            // 3. Actualizar enlaces activos en el dropdown
-            document.querySelectorAll('#langLinks a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-lang') === lang) {
-                    link.classList.add('active');
-                }
-            });
-
-            // 4. Actualizar el atributo lang del HTML
-            document.documentElement.setAttribute('lang', lang);
-        }
-
-        // Función para construir los enlaces del dropdown
-        function buildLanguageLinks() {
-            const langLinksContainer = document.getElementById('langLinks');
-            const currentLang = document.documentElement.lang;
-
-            for (const code in LANGUAGES) {
-                const name = LANGUAGES[code];
-                const link = document.createElement('a');
-                link.href = "#";
-                link.className = 'dropdown-link';
-                link.setAttribute('data-lang', code);
-                link.textContent = name + ' (' + code.toUpperCase() + ')';
-                
-                // Asignar el listener
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    setLanguage(code);
-                    toggleDropdown(); // Cierra el dropdown al seleccionar
-                });
-
-                langLinksContainer.appendChild(link);
-            }
-        }
-
-        // --- Inicialización ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const initialLang = getInitialLanguage();
-            buildLanguageLinks();
-            setLanguage(initialLang);
-        });
-    </script>
-</body>
-</html>
+                    general: 'clientes@
