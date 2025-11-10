@@ -138,6 +138,7 @@
             animation: spin 1.5s linear infinite;
             margin: 20px auto;
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -266,4 +267,61 @@
                 contactTitle1: "Departamento de Atención ao Cliente",
                 contactTitle2: "Soporte de Plataformas",
                 contactInfo: {
-                    general: 'clientes@
+                    general: 'clientes@ferreteriaelgreco.es',
+                    profesional: 'profesionales@ferreteriaelgreco.es',
+                    phone: '988 23 15 18',
+                    soporte: 'soporteplataformas@ferreteriaelgreco.es',
+                    soportePhone: '632 11 80 63'
+                },
+                labels: {
+                    general: "Xeral:",
+                    profesional: "Profesionais:",
+                    phone: "Teléfono/WhatsApp:",
+                    email: "Email:",
+                    tel: "Teléfono:",
+                }
+            }
+        };
+
+        function setLanguage(lang) {
+            document.getElementById('title').textContent = translations[lang].title;
+            document.getElementById('body_title').innerHTML = translations[lang].title;
+            document.getElementById('body').innerHTML = translations[lang].reason;
+            document.getElementById('status').textContent = translations[lang].status;
+            document.getElementById('contact_title_1').textContent = translations[lang].contactTitle1;
+            document.getElementById('contact_title_2').textContent = translations[lang].contactTitle2;
+            document.getElementById('contact_general').textContent = `${translations[lang].labels.general} ${translations[lang].contactInfo.general}`;
+            document.getElementById('contact_profesionales').textContent = `${translations[lang].labels.profesional} ${translations[lang].contactInfo.profesional}`;
+            document.getElementById('contact_phone').textContent = `${translations[lang].labels.phone} ${translations[lang].contactInfo.phone}`;
+            document.getElementById('contact_soporte_email').textContent = `${translations[lang].labels.email} ${translations[lang].contactInfo.soporte}`;
+            document.getElementById('contact_soporte_phone').textContent = `${translations[lang].labels.tel} ${translations[lang].contactInfo.soportePhone}`;
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+        }
+
+        function setLangLinks() {
+            const langLinks = document.getElementById('langLinks');
+            Object.keys(LANGUAGES).forEach(lang => {
+                const link = document.createElement('a');
+                link.href = "#";
+                link.textContent = LANGUAGES[lang];
+                link.className = 'dropdown-link';
+                link.onclick = () => {
+                    setLanguage(lang);
+                    document.querySelectorAll('.dropdown-link').forEach(link => link.classList.remove('active'));
+                    link.classList.add('active');
+                };
+                langLinks.appendChild(link);
+            });
+        }
+
+        window.onload = function() {
+            setLangLinks();
+            setLanguage('es');
+        };
+    </script>
+</body>
+</html>
