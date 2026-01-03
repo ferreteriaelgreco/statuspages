@@ -1,334 +1,353 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="gl">
 <head>
-  <meta charset="UTF-8">
-  <title>Directorio de contacto | Ferretería El Greco</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">Ferretería El Greco - Directorio</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f5f5;
-      color: #333;
-    }
+    <style>
+        :root {
+            --color-principal: #FFB842;
+            --color-principal-hover: #E6A73B;
+            --color-secundario: #5C5C5C;
+            --color-fondo: #FFFFFF;
+            --color-texto: #333333;
+            --color-claro: #F8F8F8;
+            --color-header-bg: transparent;
+        }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
 
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
+        .header {
+            width: 100%;
+            background-color: var(--color-header-bg);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    header h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
+        .header-img {
+            max-width: 250px;
+            height: auto;
+        }
 
-    header p {
-      color: #666;
-      font-size: 15px;
-    }
+        .header-lang-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .directory-section {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 20px 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
+        .header-lang-button {
+            background-color: var(--color-principal);
+            border: none;
+            color: var(--color-fondo);
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.5em;
+            line-height: 1;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
 
-    .directory-section h2 {
-      font-size: 18px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid #e0e0e0;
-      padding-bottom: 6px;
-    }
+        .header-lang-button:hover {
+            background-color: var(--color-principal-hover);
+        }
 
-    .directory-section p {
-      margin: 6px 0;
-      font-size: 14px;
-    }
+        .header-lang-dropdown {
+            background-color: var(--color-fondo);
+            border: 1px solid var(--color-claro);
+            padding: 10px;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            min-width: 150px;
+            display: none;
+            margin-top: 50px;
+            border-radius: 0 0 4px 4px;
+        }
 
-    a {
-      color: #1a4fa3;
-      text-decoration: none;
-    }
+        .dropdown-language-label {
+            color: var(--color-secundario);
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
 
-    a:hover {
-      text-decoration: underline;
-    }
+        .dropdown-link {
+            display: block;
+            padding: 5px 0;
+            color: var(--color-texto);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
 
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 13px;
-      color: #777;
-    }
+        .dropdown-link:hover {
+            background-color: var(--color-claro);
+            padding-left: 5px;
+        }
 
-    .language-selector {
-      text-align: right;
-      margin-bottom: 20px;
-    }
+        .dropdown-link.active {
+            color: var(--color-principal);
+            font-weight: bold;
+        }
 
-    select {
-      padding: 6px;
-      font-size: 13px;
-    }
-  </style>
+        .main-panel {
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            margin-top: 30px;
+            background-color: var(--color-claro);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .main-title {
+            color: var(--color-principal);
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .main-subtitle {
+            font-size: 1em;
+            color: var(--color-secundario);
+            margin-bottom: 25px;
+        }
+
+        .directory-section {
+            background: var(--color-fondo);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+
+        .directory-section h2 {
+            color: var(--color-principal);
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .directory-section p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        .directory-section a {
+            color: var(--color-principal);
+            text-decoration: none;
+        }
+
+        .directory-section a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 13px;
+            color: var(--color-secundario);
+        }
+    </style>
 </head>
 
 <body>
-
-  <div class="container">
-
-    <div class="language-selector">
-      <label for="language">Idioma:</label>
-      <select id="language">
-        <option value="es">Español</option>
-        <option value="en">English</option>
-        <option value="gl">Galego</option>
-      </select>
+    <div class="header-lang-container">
+        <button class="header-lang-button" onclick="toggleDropdown()">&#127757;</button>
+        <div class="header-lang-dropdown" id="dropdown">
+            <p id="languageLabel" class="dropdown-language-label">Idioma</p>
+            <hr style="margin:0;margin-bottom:5px;" />
+            <div id="langLinks"></div>
+        </div>
     </div>
 
-    <header>
-      <h1 id="headerTitle">Directorio de contacto</h1>
-      <p id="headerSubtitle">Canales oficiales de comunicación de Ferretería El Greco</p>
-    </header>
+    <div class="header">
+        <img class="header-img" src="https://www.ferreteriaelgreco.es/web/image/website/1/logo/Ferreter%C3%ADa%20el%20Greco?unique=e5ecd8b" alt="Ferretería El Greco">
+    </div>
 
-    <!-- Directorio -->
-    <div id="directoryContainer"></div>
+    <div class="main-panel">
+        <div class="main-title" id="body_title"></div>
+        <div class="main-subtitle" id="body_subtitle"></div>
+
+        <div id="directoryContainer"></div>
+    </div>
 
     <footer>
-      Ferretería El Greco
+        Ferretería El Greco
     </footer>
 
-  </div>
+    <script>
+        const LANGUAGES = {'es':'Español','en':'English','gl':'Galego'};
 
-  <script>
-    const LANGUAGES = {
-      'es': 'Español',
-      'en': 'English',
-      'gl': 'Galego'
-    };
+        const directoryData = {
+            'es':{
+                title:"Directorio de contacto",
+                subtitle:"Canales oficiales de comunicación de Ferretería El Greco",
+                sections:[
+                    {title:"Departamento de Atención al Cliente", items:[
+                        {label:"Email general", value:"clientes@ferreteriaelgreco.es"},
+                        {label:"Email profesionales", value:"profesionales@ferreteriaelgreco.es"},
+                        {label:"Teléfono / WhatsApp", value:"988 23 15 18"}
+                    ]},
+                    {title:"Administración y Contabilidad", items:[
+                        {label:"Email", value:"administracion@ferreteriaelgreco.es"},
+                        {label:"Teléfono", value:"988 23 15 18 (sujeto a disponibilidad)"}
+                    ]},
+                    {title:"Contratación y Recursos Humanos", items:[
+                        {label:"Contratación", value:"empleo@ferreteriaelgreco.es"},
+                        {label:"Atención al empleado", value:"atempleados@ferreteriaelgreco.es"}
+                    ]},
+                    {title:"IT – Soporte de Plataformas", items:[
+                        {label:"Email", value:"soporteplataformas@ferreteriaelgreco.es"},
+                        {label:"Teléfono", value:"632 11 80 63"},
+                        {label:"Nota", value:"Canal exclusivo para clientes."}
+                    ]},
+                    {title:"Gestión de Inmuebles", items:[
+                        {label:"Email directo", value:"inmuebles@ferreteriaelgreco.es"},
+                        {label:"Nota", value:"La gestión se realiza por zonas."}
+                    ]},
+                    {title:"Departamento de Compras", items:[
+                        {label:"Nuevos proveedores", value:"propuestas@ferreteriaelgreco.es"},
+                        {label:"Proveedores activos", value:"proveedores@ferreteriaelgreco.es"}
+                    ]},
+                    {title:"Delegado de Protección de Datos (DPD)", items:[
+                        {label:"Email", value:"dpd@ferreteriaelgreco.es"}
+                    ]}
+                ]
+            },
+            'en':{
+                title:"Contact Directory",
+                subtitle:"Official communication channels of Ferretería El Greco",
+                sections:[
+                    {title:"Customer Service Department", items:[
+                        {label:"General Email", value:"clientes@ferreteriaelgreco.es"},
+                        {label:"Professionals Email", value:"profesionales@ferreteriaelgreco.es"},
+                        {label:"Phone / WhatsApp", value:"+34 988 23 15 18"}
+                    ]},
+                    {title:"Administration and Accounting", items:[
+                        {label:"Email", value:"administracion@ferreteriaelgreco.es"},
+                        {label:"Phone", value:"+34 988 23 15 18 (subject to availability)"}
+                    ]},
+                    {title:"Hiring and Human Resources", items:[
+                        {label:"Hiring", value:"empleo@ferreteriaelgreco.es"},
+                        {label:"Employee Support", value:"atempleados@ferreteriaelgreco.es"}
+                    ]},
+                    {title:"IT – Platform Support", items:[
+                        {label:"Email", value:"soporteplataformas@ferreteriaelgreco.es"},
+                        {label:"Phone", value:"+34 632 11 80 63"},
+                        {label:"Note", value:"Exclusive channel for clients."}
+                    ]},
+                    {title:"Property Management", items:[
+                        {label:"Direct Email", value:"inmuebles@ferreteriaelgreco.es"},
+                        {label:"Note", value:"Management is carried out by zones."}
+                    ]},
+                    {title:"Purchasing Department", items:[
+                        {label:"New Suppliers", value:"propuestas@ferreteriaelgreco.es"},
+                        {label:"Active Suppliers", value:"proveedores@ferreteriaelgreco.es"}
+                    ]},
+                    {title:"Data Protection Officer (DPO)", items:[
+                        {label:"Email", value:"dpd@ferreteriaelgreco.es"}
+                    ]}
+                ]
+            },
+            'gl':{
+                title:"Directorio de contacto",
+                subtitle:"Canles oficiais de comunicación de Ferretería El Greco",
+                sections:[
+                    {title:"Departamento de Atención ao Cliente", items:[
+                        {label:"Email xeral", value:"clientes@ferreteriaelgreco.es"},
+                        {label:"Email profesionais", value:"profesionales@ferreteriaelgreco.es"},
+                        {label:"Teléfono / WhatsApp", value:"988 23 15 18"}
+                    ]},
+                    {title:"Administración e Contabilidade", items:[
+                        {label:"Email", value:"administracion@ferreteriaelgreco.es"},
+                        {label:"Teléfono", value:"988 23 15 18 (suxeito a dispoñibilidade)"}
+                    ]},
+                    {title:"Contratación e Recursos Humanos", items:[
+                        {label:"Contratación", value:"empleo@ferreteriaelgreco.es"},
+                        {label:"Atención ao empregado", value:"atempleados@ferreteriaelgreco.es"}
+                    ]},
+                    {title:"IT – Soporte de Plataformas", items:[
+                        {label:"Email", value:"soporteplataformas@ferreteriaelgreco.es"},
+                        {label:"Teléfono", value:"632 11 80 63"},
+                        {label:"Nota", value:"Canle exclusiva para clientes."}
+                    ]},
+                    {title:"Xestión de Inmuebles", items:[
+                        {label:"Email directo", value:"inmuebles@ferreteriaelgreco.es"},
+                        {label:"Nota", value:"A xestión faise por zonas."}
+                    ]},
+                    {title:"Departamento de Compras", items:[
+                        {label:"Novos provedores", value:"propuestas@ferreteriaelgreco.es"},
+                        {label:"Provedores activos", value:"proveedores@ferreteriaelgreco.es"}
+                    ]},
+                    {title:"Delegado de Protección de Datos (DPD)", items:[
+                        {label:"Email", value:"dpd@ferreteriaelgreco.es"}
+                    ]}
+                ]
+            }
+        };
 
-    const directoryData = {
-      'es': {
-        headerTitle: "Directorio de contacto",
-        headerSubtitle: "Canales oficiales de comunicación de Ferretería El Greco",
-        sections: [
-          {
-            title: "Departamento de Atención al Cliente",
-            items: [
-              {label: "Email general", value: "clientes@ferreteriaelgreco.es"},
-              {label: "Email profesionales", value: "profesionales@ferreteriaelgreco.es"},
-              {label: "Teléfono / WhatsApp", value: "988 23 15 18"},
-              {label: "Buzón de sugerencias (ES)", value: "teescuchamos@ferreteriaelgreco.es"},
-              {label: "Buzón de sugerencias (GL)", value: "escoitamoste@ferreteriaelgreco.es"},
-              {label: "Reclamaciones", value: "reclamaciones@ferreteriaelgreco.es"}
-            ]
-          },
-          {
-            title: "Administración y Contabilidad",
-            items: [
-              {label: "Email", value: "administracion@ferreteriaelgreco.es"},
-              {label: "Teléfono", value: "988 23 15 18 (sujeto a disponibilidad)"}
-            ]
-          },
-          {
-            title: "Contratación y Recursos Humanos",
-            items: [
-              {label: "Contratación", value: "empleo@ferreteriaelgreco.es"},
-              {label: "Atención al empleado", value: "atempleados@ferreteriaelgreco.es"}
-            ]
-          },
-          {
-            title: "IT – Soporte de Plataformas",
-            items: [
-              {label: "Email", value: "soporteplataformas@ferreteriaelgreco.es"},
-              {label: "Teléfono", value: "632 11 80 63"},
-              {label: "Nota", value: "Canal exclusivo para clientes."}
-            ]
-          },
-          {
-            title: "Gestión de Inmuebles",
-            items: [
-              {label: "Email directo", value: "inmuebles@ferreteriaelgreco.es"},
-              {label: "Nota", value: "La gestión se realiza por zonas."}
-            ]
-          },
-          {
-            title: "Departamento de Compras",
-            items: [
-              {label: "Nuevos proveedores", value: "propuestas@ferreteriaelgreco.es"},
-              {label: "Proveedores activos", value: "proveedores@ferreteriaelgreco.es"}
-            ]
-          },
-          {
-            title: "Delegado de Protección de Datos (DPD)",
-            items: [
-              {label: "Email", value: "dpd@ferreteriaelgreco.es"}
-            ]
-          }
-        ]
-      },
-      'en': {
-        headerTitle: "Contact Directory",
-        headerSubtitle: "Official communication channels of Ferretería El Greco",
-        sections: [
-          {
-            title: "Customer Service Department",
-            items: [
-              {label: "General Email", value: "clientes@ferreteriaelgreco.es"},
-              {label: "Professionals Email", value: "profesionales@ferreteriaelgreco.es"},
-              {label: "Phone / WhatsApp", value: "+34 988 23 15 18"},
-              {label: "Suggestions Box (ES)", value: "teescuchamos@ferreteriaelgreco.es"},
-              {label: "Suggestions Box (GL)", value: "escoitamoste@ferreteriaelgreco.es"},
-              {label: "Complaints", value: "reclamaciones@ferreteriaelgreco.es"}
-            ]
-          },
-          {
-            title: "Administration and Accounting",
-            items: [
-              {label: "Email", value: "administracion@ferreteriaelgreco.es"},
-              {label: "Phone", value: "+34 988 23 15 18 (subject to availability)"}
-            ]
-          },
-          {
-            title: "Hiring and Human Resources",
-            items: [
-              {label: "Hiring", value: "empleo@ferreteriaelgreco.es"},
-              {label: "Employee Support", value: "atempleados@ferreteriaelgreco.es"}
-            ]
-          },
-          {
-            title: "IT – Platform Support",
-            items: [
-              {label: "Email", value: "soporteplataformas@ferreteriaelgreco.es"},
-              {label: "Phone", value: "+34 632 11 80 63"},
-              {label: "Note", value: "Exclusive channel for clients."}
-            ]
-          },
-          {
-            title: "Property Management",
-            items: [
-              {label: "Direct Email", value: "inmuebles@ferreteriaelgreco.es"},
-              {label: "Note", value: "Management is carried out by zones."}
-            ]
-          },
-          {
-            title: "Purchasing Department",
-            items: [
-              {label: "New Suppliers", value: "propuestas@ferreteriaelgreco.es"},
-              {label: "Active Suppliers", value: "proveedores@ferreteriaelgreco.es"}
-            ]
-          },
-          {
-            title: "Data Protection Officer (DPO)",
-            items: [
-              {label: "Email", value: "dpd@ferreteriaelgreco.es"}
-            ]
-          }
-        ]
-      },
-      'gl': {
-        headerTitle: "Directorio de contacto",
-        headerSubtitle: "Canles oficiais de comunicación de Ferretería El Greco",
-        sections: [
-          {
-            title: "Departamento de Atención ao Cliente",
-            items: [
-              {label: "Email xeral", value: "clientes@ferreteriaelgreco.es"},
-              {label: "Email profesionais", value: "profesionales@ferreteriaelgreco.es"},
-              {label: "Teléfono / WhatsApp", value: "988 23 15 18"},
-              {label: "Buzón de suxerencias (ES)", value: "teescuchamos@ferreteriaelgreco.es"},
-              {label: "Buzón de suxerencias (GL)", value: "escoitamoste@ferreteriaelgreco.es"},
-              {label: "Reclamacións", value: "reclamaciones@ferreteriaelgreco.es"}
-            ]
-          },
-          {
-            title: "Administración e Contabilidade",
-            items: [
-              {label: "Email", value: "administracion@ferreteriaelgreco.es"},
-              {label: "Teléfono", value: "988 23 15 18 (suxeito a dispoñibilidade)"}
-            ]
-          },
-          {
-            title: "Contratación e Recursos Humanos",
-            items: [
-              {label: "Contratación", value: "empleo@ferreteriaelgreco.es"},
-              {label: "Atención ao empregado", value: "atempleados@ferreteriaelgreco.es"}
-            ]
-          },
-          {
-            title: "IT – Soporte de Plataformas",
-            items: [
-              {label: "Email", value: "soporteplataformas@ferreteriaelgreco.es"},
-              {label: "Teléfono", value: "632 11 80 63"},
-              {label: "Nota", value: "Canle exclusiva para clientes."}
-            ]
-          },
-          {
-            title: "Xestión de Inmuebles",
-            items: [
-              {label: "Email directo", value: "inmuebles@ferreteriaelgreco.es"},
-              {label: "Nota", value: "A xestión faise por zonas."}
-            ]
-          },
-          {
-            title: "Departamento de Compras",
-            items: [
-              {label: "Novos provedores", value: "propuestas@ferreteriaelgreco.es"},
-              {label: "Provedores activos", value: "proveedores@ferreteriaelgreco.es"}
-            ]
-          },
-          {
-            title: "Delegado de Protección de Datos (DPD)",
-            items: [
-              {label: "Email", value: "dpd@ferreteriaelgreco.es"}
-            ]
-          }
-        ]
-      }
-    };
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+        }
 
-    const languageSelector = document.getElementById('language');
-    const directoryContainer = document.getElementById('directoryContainer');
-    const headerTitle = document.getElementById('headerTitle');
-    const headerSubtitle = document.getElementById('headerSubtitle');
+        function setLangLinks() {
+            const langLinks = document.getElementById('langLinks');
+            Object.keys(LANGUAGES).forEach(lang => {
+                const link = document.createElement('a');
+                link.href = "#";
+                link.textContent = LANGUAGES[lang];
+                link.className = 'dropdown-link';
+                link.onclick = () => {
+                    renderDirectory(lang);
+                    document.querySelectorAll('.dropdown-link').forEach(link => link.classList.remove('active'));
+                    link.classList.add('active');
+                };
+                langLinks.appendChild(link);
+            });
+        }
 
-    function renderDirectory(lang) {
-      headerTitle.textContent = directoryData[lang].headerTitle;
-      headerSubtitle.textContent = directoryData[lang].headerSubtitle;
+        function renderDirectory(lang) {
+            const data = directoryData[lang];
+            document.getElementById('title').textContent = data.title;
+            document.getElementById('body_title').textContent = data.title;
+            document.getElementById('body_subtitle').textContent = data.subtitle;
 
-      directoryContainer.innerHTML = ''; // Limpiar
-      directoryData[lang].sections.forEach(section => {
-        const div = document.createElement('div');
-        div.className = 'directory-section';
-        let html = `<h2>${section.title}</h2>`;
-        section.items.forEach(item => {
-          if(item.value.includes('@')) {
-            html += `<p><strong>${item.label}:</strong> <a href="mailto:${item.value}">${item.value}</a></p>`;
-          } else {
-            html += `<p><strong>${item.label}:</strong> ${item.value}</p>`;
-          }
-        });
-        div.innerHTML = html;
-        directoryContainer.appendChild(div);
-      });
-    }
+            const container = document.getElementById('directoryContainer');
+            container.innerHTML = '';
+            data.sections.forEach(section => {
+                const div = document.createElement('div');
+                div.className = 'directory-section';
+                let html = `<h2>${section.title}</h2>`;
+                section.items.forEach(item => {
+                    if(item.value.includes('@')) html += `<p><strong>${item.label}:</strong> <a href="mailto:${item.value}">${item.value}</a></p>`;
+                    else html += `<p><strong>${item.label}:</strong> ${item.value}</p>`;
+                });
+                div.innerHTML = html;
+                container.appendChild(div);
+            });
+        }
 
-    languageSelector.addEventListener('change', (e) => {
-      renderDirectory(e.target.value);
-    });
-
-    // Inicial
-    renderDirectory('es');
-  </script>
-
+        window.onload = function() {
+            setLangLinks();
+            renderDirectory('es');
+        };
+    </script>
 </body>
 </html>
