@@ -170,6 +170,22 @@
             color: var(--color-principal);
             text-decoration: none;
         }
+
+        /* Estilo del botón de directorio */
+        .directory-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--color-principal);
+            color: var(--color-fondo);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .directory-button:hover {
+            background-color: var(--color-principal-hover);
+        }
     </style>
 </head>
 
@@ -190,6 +206,11 @@
     <div class="main-panel">
         <div class="main-title" id='body_title'></div>
         <div class="main-reason" id='body'></div>
+
+        <!-- Botón directorio -->
+        <div style="margin: 20px 0;">
+            <a id="directoryBtn" href="/directorio" class="directory-button"></a>
+        </div>
 
         <h2 id="status"></h2>
         <div class="loader"></div>
@@ -241,86 +262,4 @@
                 reason: "We are making changes to our systems and website. We'll be back as soon as possible.",
                 status: " ",
                 languageLabel: "Language",
-                contactTitle1: "Customer Service Department",
-                contactTitle2: "Platform Support",
-                contactInfo: {
-                    general: 'clientes@ferreteriaelgreco.es',
-                    profesional: 'profesionales@ferreteriaelgreco.es',
-                    phone: '+34 988 23 15 18',
-                    soporte: 'soporteplataformas@ferreteriaelgreco.es',
-                    soportePhone: '+34 632 11 80 63'
-                },
-                labels: {
-                    general: "General:",
-                    profesional: "Professionals:",
-                    phone: "Phone/WhatsApp:",
-                    email: "Email:",
-                    tel: "Phone:",
-                }
-            },
-            'gl': {
-                title: "Estamos en obras",
-                reason: "Estamos a realizar cambios nos nosos sistemas e na web. Volveremos canto antes.",
-                status: " ",
-                languageLabel: "Idioma",
-                contactTitle1: "Departamento de Atención ao Cliente",
-                contactTitle2: "Soporte de Plataformas",
-                contactInfo: {
-                    general: 'clientes@ferreteriaelgreco.es',
-                    profesional: 'profesionales@ferreteriaelgreco.es',
-                    phone: '988 23 15 18',
-                    soporte: 'soporteplataformas@ferreteriaelgreco.es',
-                    soportePhone: '632 11 80 63'
-                },
-                labels: {
-                    general: "Xeral:",
-                    profesional: "Profesionais:",
-                    phone: "Teléfono/WhatsApp:",
-                    email: "Email:",
-                    tel: "Teléfono:",
-                }
-            }
-        };
-
-        function setLanguage(lang) {
-            document.getElementById('title').textContent = translations[lang].title;
-            document.getElementById('body_title').innerHTML = translations[lang].title;
-            document.getElementById('body').innerHTML = translations[lang].reason;
-            document.getElementById('status').textContent = translations[lang].status;
-            document.getElementById('contact_title_1').textContent = translations[lang].contactTitle1;
-            document.getElementById('contact_title_2').textContent = translations[lang].contactTitle2;
-            document.getElementById('contact_general').textContent = `${translations[lang].labels.general} ${translations[lang].contactInfo.general}`;
-            document.getElementById('contact_profesionales').textContent = `${translations[lang].labels.profesional} ${translations[lang].contactInfo.profesional}`;
-            document.getElementById('contact_phone').textContent = `${translations[lang].labels.phone} ${translations[lang].contactInfo.phone}`;
-            document.getElementById('contact_soporte_email').textContent = `${translations[lang].labels.email} ${translations[lang].contactInfo.soporte}`;
-            document.getElementById('contact_soporte_phone').textContent = `${translations[lang].labels.tel} ${translations[lang].contactInfo.soportePhone}`;
-        }
-
-        function toggleDropdown() {
-            const dropdown = document.getElementById('dropdown');
-            dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
-        }
-
-        function setLangLinks() {
-            const langLinks = document.getElementById('langLinks');
-            Object.keys(LANGUAGES).forEach(lang => {
-                const link = document.createElement('a');
-                link.href = "#";
-                link.textContent = LANGUAGES[lang];
-                link.className = 'dropdown-link';
-                link.onclick = () => {
-                    setLanguage(lang);
-                    document.querySelectorAll('.dropdown-link').forEach(link => link.classList.remove('active'));
-                    link.classList.add('active');
-                };
-                langLinks.appendChild(link);
-            });
-        }
-
-        window.onload = function() {
-            setLangLinks();
-            setLanguage('es');
-        };
-    </script>
-</body>
-</html>
+                contactTitle1: "Customer Service Department
