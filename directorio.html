@@ -96,88 +96,239 @@
     </div>
 
     <header>
-      <h1>Directorio de contacto</h1>
-      <p>Canales oficiales de comunicación de Ferretería El Greco</p>
+      <h1 id="headerTitle">Directorio de contacto</h1>
+      <p id="headerSubtitle">Canales oficiales de comunicación de Ferretería El Greco</p>
     </header>
 
-    <div class="directory-section">
-      <h2>Departamento de Atención al Cliente</h2>
-      <p><strong>Email general:</strong>
-        <a href="mailto:clientes@ferreteriaelgreco.es">clientes@ferreteriaelgreco.es</a>
-      </p>
-      <p><strong>Email profesionales:</strong>
-        <a href="mailto:profesionales@ferreteriaelgreco.es">profesionales@ferreteriaelgreco.es</a>
-      </p>
-      <p><strong>Teléfono / WhatsApp:</strong> 988 23 15 18</p>
-
-      <p><strong>Buzón de sugerencias (ES):</strong>
-        <a href="mailto:teescuchamos@ferreteriaelgreco.es">teescuchamos@ferreteriaelgreco.es</a>
-      </p>
-      <p><strong>Buzón de sugerencias (GL):</strong>
-        <a href="mailto:escoitamoste@ferreteriaelgreco.es">escoitamoste@ferreteriaelgreco.es</a>
-      </p>
-      <p><strong>Reclamaciones:</strong>
-        <a href="mailto:reclamaciones@ferreteriaelgreco.es">reclamaciones@ferreteriaelgreco.es</a>
-      </p>
-    </div>
-
-    <div class="directory-section">
-      <h2>Administración y Contabilidad</h2>
-      <p><strong>Email:</strong>
-        <a href="mailto:administracion@ferreteriaelgreco.es">administracion@ferreteriaelgreco.es</a>
-      </p>
-      <p><strong>Teléfono:</strong> 988 23 15 18 <em>(sujeto a disponibilidad)</em></p>
-    </div>
-
-    <div class="directory-section">
-      <h2>Contratación y Recursos Humanos</h2>
-      <p><strong>Contratación:</strong>
-        <a href="mailto:empleo@ferreteriaelgreco.es">empleo@ferreteriaelgreco.es</a>
-      </p>
-      <p><strong>Atención al empleado:</strong>
-        <a href="mailto:atempleados@ferreteriaelgreco.es">atempleados@ferreteriaelgreco.es</a>
-      </p>
-    </div>
-
-    <div class="directory-section">
-      <h2>IT – Soporte de Plataformas</h2>
-      <p><strong>Email:</strong>
-        <a href="mailto:soporteplataformas@ferreteriaelgreco.es">soporteplataformas@ferreteriaelgreco.es</a>
-      </p>
-      <p><strong>Teléfono:</strong> 632 11 80 63</p>
-      <p><em>Canal exclusivo para clientes.</em></p>
-    </div>
-
-    <div class="directory-section">
-      <h2>Gestión de Inmuebles</h2>
-      <p><strong>Email directo:</strong>
-        <a href="mailto:inmuebles@ferreteriaelgreco.es">inmuebles@ferreteriaelgreco.es</a>
-      </p>
-      <p><em>La gestión se realiza por zonas.</em></p>
-    </div>
-
-    <div class="directory-section">
-      <h2>Departamento de Compras</h2>
-      <p><strong>Nuevos proveedores:</strong>
-        <a href="mailto:propuestas@ferreteriaelgreco.es">propuestas@ferreteriaelgreco.es</a>
-      </p>
-      <p><strong>Proveedores activos:</strong>
-        <a href="mailto:proveedores@ferreteriaelgreco.es">proveedores@ferreteriaelgreco.es</a>
-      </p>
-    </div>
-
-    <div class="directory-section">
-      <h2>Delegado de Protección de Datos (DPD)</h2>
-      <p><strong>Email:</strong>
-        <a href="mailto:dpd@ferreteriaelgreco.es">dpd@ferreteriaelgreco.es</a>
-      </p>
-    </div>
+    <!-- Directorio -->
+    <div id="directoryContainer"></div>
 
     <footer>
       Ferretería El Greco
     </footer>
 
   </div>
+
+  <script>
+    const LANGUAGES = {
+      'es': 'Español',
+      'en': 'English',
+      'gl': 'Galego'
+    };
+
+    const directoryData = {
+      'es': {
+        headerTitle: "Directorio de contacto",
+        headerSubtitle: "Canales oficiales de comunicación de Ferretería El Greco",
+        sections: [
+          {
+            title: "Departamento de Atención al Cliente",
+            items: [
+              {label: "Email general", value: "clientes@ferreteriaelgreco.es"},
+              {label: "Email profesionales", value: "profesionales@ferreteriaelgreco.es"},
+              {label: "Teléfono / WhatsApp", value: "988 23 15 18"},
+              {label: "Buzón de sugerencias (ES)", value: "teescuchamos@ferreteriaelgreco.es"},
+              {label: "Buzón de sugerencias (GL)", value: "escoitamoste@ferreteriaelgreco.es"},
+              {label: "Reclamaciones", value: "reclamaciones@ferreteriaelgreco.es"}
+            ]
+          },
+          {
+            title: "Administración y Contabilidad",
+            items: [
+              {label: "Email", value: "administracion@ferreteriaelgreco.es"},
+              {label: "Teléfono", value: "988 23 15 18 (sujeto a disponibilidad)"}
+            ]
+          },
+          {
+            title: "Contratación y Recursos Humanos",
+            items: [
+              {label: "Contratación", value: "empleo@ferreteriaelgreco.es"},
+              {label: "Atención al empleado", value: "atempleados@ferreteriaelgreco.es"}
+            ]
+          },
+          {
+            title: "IT – Soporte de Plataformas",
+            items: [
+              {label: "Email", value: "soporteplataformas@ferreteriaelgreco.es"},
+              {label: "Teléfono", value: "632 11 80 63"},
+              {label: "Nota", value: "Canal exclusivo para clientes."}
+            ]
+          },
+          {
+            title: "Gestión de Inmuebles",
+            items: [
+              {label: "Email directo", value: "inmuebles@ferreteriaelgreco.es"},
+              {label: "Nota", value: "La gestión se realiza por zonas."}
+            ]
+          },
+          {
+            title: "Departamento de Compras",
+            items: [
+              {label: "Nuevos proveedores", value: "propuestas@ferreteriaelgreco.es"},
+              {label: "Proveedores activos", value: "proveedores@ferreteriaelgreco.es"}
+            ]
+          },
+          {
+            title: "Delegado de Protección de Datos (DPD)",
+            items: [
+              {label: "Email", value: "dpd@ferreteriaelgreco.es"}
+            ]
+          }
+        ]
+      },
+      'en': {
+        headerTitle: "Contact Directory",
+        headerSubtitle: "Official communication channels of Ferretería El Greco",
+        sections: [
+          {
+            title: "Customer Service Department",
+            items: [
+              {label: "General Email", value: "clientes@ferreteriaelgreco.es"},
+              {label: "Professionals Email", value: "profesionales@ferreteriaelgreco.es"},
+              {label: "Phone / WhatsApp", value: "+34 988 23 15 18"},
+              {label: "Suggestions Box (ES)", value: "teescuchamos@ferreteriaelgreco.es"},
+              {label: "Suggestions Box (GL)", value: "escoitamoste@ferreteriaelgreco.es"},
+              {label: "Complaints", value: "reclamaciones@ferreteriaelgreco.es"}
+            ]
+          },
+          {
+            title: "Administration and Accounting",
+            items: [
+              {label: "Email", value: "administracion@ferreteriaelgreco.es"},
+              {label: "Phone", value: "+34 988 23 15 18 (subject to availability)"}
+            ]
+          },
+          {
+            title: "Hiring and Human Resources",
+            items: [
+              {label: "Hiring", value: "empleo@ferreteriaelgreco.es"},
+              {label: "Employee Support", value: "atempleados@ferreteriaelgreco.es"}
+            ]
+          },
+          {
+            title: "IT – Platform Support",
+            items: [
+              {label: "Email", value: "soporteplataformas@ferreteriaelgreco.es"},
+              {label: "Phone", value: "+34 632 11 80 63"},
+              {label: "Note", value: "Exclusive channel for clients."}
+            ]
+          },
+          {
+            title: "Property Management",
+            items: [
+              {label: "Direct Email", value: "inmuebles@ferreteriaelgreco.es"},
+              {label: "Note", value: "Management is carried out by zones."}
+            ]
+          },
+          {
+            title: "Purchasing Department",
+            items: [
+              {label: "New Suppliers", value: "propuestas@ferreteriaelgreco.es"},
+              {label: "Active Suppliers", value: "proveedores@ferreteriaelgreco.es"}
+            ]
+          },
+          {
+            title: "Data Protection Officer (DPO)",
+            items: [
+              {label: "Email", value: "dpd@ferreteriaelgreco.es"}
+            ]
+          }
+        ]
+      },
+      'gl': {
+        headerTitle: "Directorio de contacto",
+        headerSubtitle: "Canles oficiais de comunicación de Ferretería El Greco",
+        sections: [
+          {
+            title: "Departamento de Atención ao Cliente",
+            items: [
+              {label: "Email xeral", value: "clientes@ferreteriaelgreco.es"},
+              {label: "Email profesionais", value: "profesionales@ferreteriaelgreco.es"},
+              {label: "Teléfono / WhatsApp", value: "988 23 15 18"},
+              {label: "Buzón de suxerencias (ES)", value: "teescuchamos@ferreteriaelgreco.es"},
+              {label: "Buzón de suxerencias (GL)", value: "escoitamoste@ferreteriaelgreco.es"},
+              {label: "Reclamacións", value: "reclamaciones@ferreteriaelgreco.es"}
+            ]
+          },
+          {
+            title: "Administración e Contabilidade",
+            items: [
+              {label: "Email", value: "administracion@ferreteriaelgreco.es"},
+              {label: "Teléfono", value: "988 23 15 18 (suxeito a dispoñibilidade)"}
+            ]
+          },
+          {
+            title: "Contratación e Recursos Humanos",
+            items: [
+              {label: "Contratación", value: "empleo@ferreteriaelgreco.es"},
+              {label: "Atención ao empregado", value: "atempleados@ferreteriaelgreco.es"}
+            ]
+          },
+          {
+            title: "IT – Soporte de Plataformas",
+            items: [
+              {label: "Email", value: "soporteplataformas@ferreteriaelgreco.es"},
+              {label: "Teléfono", value: "632 11 80 63"},
+              {label: "Nota", value: "Canle exclusiva para clientes."}
+            ]
+          },
+          {
+            title: "Xestión de Inmuebles",
+            items: [
+              {label: "Email directo", value: "inmuebles@ferreteriaelgreco.es"},
+              {label: "Nota", value: "A xestión faise por zonas."}
+            ]
+          },
+          {
+            title: "Departamento de Compras",
+            items: [
+              {label: "Novos provedores", value: "propuestas@ferreteriaelgreco.es"},
+              {label: "Provedores activos", value: "proveedores@ferreteriaelgreco.es"}
+            ]
+          },
+          {
+            title: "Delegado de Protección de Datos (DPD)",
+            items: [
+              {label: "Email", value: "dpd@ferreteriaelgreco.es"}
+            ]
+          }
+        ]
+      }
+    };
+
+    const languageSelector = document.getElementById('language');
+    const directoryContainer = document.getElementById('directoryContainer');
+    const headerTitle = document.getElementById('headerTitle');
+    const headerSubtitle = document.getElementById('headerSubtitle');
+
+    function renderDirectory(lang) {
+      headerTitle.textContent = directoryData[lang].headerTitle;
+      headerSubtitle.textContent = directoryData[lang].headerSubtitle;
+
+      directoryContainer.innerHTML = ''; // Limpiar
+      directoryData[lang].sections.forEach(section => {
+        const div = document.createElement('div');
+        div.className = 'directory-section';
+        let html = `<h2>${section.title}</h2>`;
+        section.items.forEach(item => {
+          if(item.value.includes('@')) {
+            html += `<p><strong>${item.label}:</strong> <a href="mailto:${item.value}">${item.value}</a></p>`;
+          } else {
+            html += `<p><strong>${item.label}:</strong> ${item.value}</p>`;
+          }
+        });
+        div.innerHTML = html;
+        directoryContainer.appendChild(div);
+      });
+    }
+
+    languageSelector.addEventListener('change', (e) => {
+      renderDirectory(e.target.value);
+    });
+
+    // Inicial
+    renderDirectory('es');
+  </script>
 
 </body>
 </html>
