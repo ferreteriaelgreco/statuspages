@@ -1,78 +1,326 @@
-<script>
-const LANGUAGES = {
-    'es': 'Español',
-    'en': 'English',
-    'gl': 'Galego'
-};
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">Ferretería El Greco - Mantenimiento</title>
+    <meta http-equiv="refresh" content="60">
 
-const translations = {
-    'es': {
-        title: "Estamos en obras",
-        reason: "Estamos realizando un cambio en nuestros sistemas y en nuestra web. Volveremos lo antes posible. Disculpa las molestias.",
-        status: " ",
-        languageLabel: "Idioma",
-        contactTitle1: "Departamento de Atención al Cliente",
-        contactTitle2: "Soporte de Plataformas",
-        contactInfo: {
-            general: 'clientes@ferreteriaelgreco.es',
-            profesional: 'profesionales@ferreteriaelgreco.es',
-            phone: '988 23 15 18',
-            soporte: 'soporteplataformas@ferreteriaelgreco.es',
-            soportePhone: '632 11 80 63'
-        },
-        labels: {
-            general: "General:",
-            profesional: "Profesionales:",
-            phone: "Teléfono/WhatsApp:",
-            email: "Email:",
-            tel: "Teléfono:"
+    <style>
+        :root {
+            --color-principal: #FFB842;
+            --color-principal-hover: #E6A73B;
+            --color-secundario: #5C5C5C;
+            --color-fondo: #FFFFFF;
+            --color-texto: #333333;
+            --color-claro: #F8F8F8;
+            --color-header-bg: transparent;
         }
-    },
 
-    'en': {
-        title: "We are under maintenance",
-        reason: "We are currently making changes to our systems and website. We will be back as soon as possible. Sorry for the inconvenience.",
-        status: " ",
-        languageLabel: "Language",
-        contactTitle1: "Customer Service Department",
-        contactTitle2: "Platform Support",
-        contactInfo: {
-            general: 'clientes@ferreteriaelgreco.es',
-            profesional: 'profesionales@ferreteriaelgreco.es',
-            phone: '+34 988 23 15 18',
-            soporte: 'soporteplataformas@ferreteriaelgreco.es',
-            soportePhone: '+34 632 11 80 63'
-        },
-        labels: {
-            general: "General:",
-            profesional: "Professionals:",
-            phone: "Phone/WhatsApp:",
-            email: "Email:",
-            tel: "Phone:"
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
         }
-    },
 
-    'gl': {
-        title: "Estamos en obras",
-        reason: "Estamos a realizar cambios nos nosos sistemas e na nosa web. Volveremos canto antes. Desculpa as molestias.",
-        status: " ",
-        languageLabel: "Idioma",
-        contactTitle1: "Departamento de Atención ao Cliente",
-        contactTitle2: "Soporte de Plataformas",
-        contactInfo: {
-            general: 'clientes@ferreteriaelgreco.es',
-            profesional: 'profesionales@ferreteriaelgreco.es',
-            phone: '988 23 15 18',
-            soporte: 'soporteplataformas@ferreteriaelgreco.es',
-            soportePhone: '632 11 80 63'
-        },
-        labels: {
-            general: "Xeral:",
-            profesional: "Profesionais:",
-            phone: "Teléfono/WhatsApp:",
-            email: "Email:",
-            tel: "Teléfono:"
+        .header {
+            width: 100%;
+            background-color: var(--color-header-bg);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-    }
-};
-</script>
+
+        .header-img {
+            max-width: 250px;
+            height: auto;
+        }
+
+        .header-lang-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-lang-button {
+            background-color: var(--color-principal);
+            border: none;
+            color: var(--color-fondo);
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.5em;
+            line-height: 1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .header-lang-button:hover {
+            background-color: var(--color-principal-hover);
+        }
+
+        .header-lang-dropdown {
+            background-color: var(--color-fondo);
+            border: 1px solid var(--color-claro);
+            padding: 10px;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
+            display: none;
+            margin-top: 50px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .dropdown-language-label {
+            color: var(--color-secundario);
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .dropdown-link {
+            display: block;
+            padding: 5px 0;
+            color: var(--color-texto);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-link:hover {
+            background-color: var(--color-claro);
+            padding-left: 5px;
+        }
+
+        .dropdown-link.active {
+            color: var(--color-principal);
+            font-weight: bold;
+        }
+
+        .main-panel {
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            margin-top: 30px;
+            background-color: var(--color-claro);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .main-title {
+            color: var(--color-principal);
+            font-size: 2.2em;
+            margin-top: 0;
+        }
+
+        .main-reason {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .loader {
+            border: 5px solid var(--color-claro);
+            border-top: 5px solid var(--color-principal);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1.5s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .contact-section {
+            padding-top: 15px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .contact-section h3 {
+            color: var(--color-principal);
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .contact-section p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        .contact-section strong {
+            color: var(--color-secundario);
+            font-weight: 500;
+        }
+
+        .contact-section a {
+            color: var(--color-principal);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-lang-container">
+        <button class="header-lang-button" onclick="toggleDropdown()">&#127757;</button>
+        <div class="header-lang-dropdown" id="dropdown">
+            <p id="languageLabel" class="dropdown-language-label">Idioma</p>
+            <hr style="margin: 0px; margin-bottom: 5px;" />
+            <div id="langLinks"></div>
+        </div>
+    </div>
+
+    <div class="header">
+        <img class="header-img" src="https://www.ferreteriaelgreco.es/web/image/website/1/logo/Ferreter%C3%ADa%20el%20Greco?unique=e5ecd8b" alt="Ferretería El Greco" onerror="this.alt='Ferretería El Greco'">
+    </div>
+
+    <div class="main-panel">
+        <div class="main-title" id='body_title'></div>
+        <div class="main-reason" id='body'></div>
+
+        <h2 id="status"></h2>
+        <div class="loader"></div>
+
+        <div class="contact-section">
+            <h3 id="contact_title_1"></h3>
+            <p id="contact_general"></p>
+            <p id="contact_profesionales"></p>
+            <p id="contact_phone"></p>
+
+            <h3 id="contact_title_2"></h3>
+            <p id="contact_soporte_email"></p>
+            <p id="contact_soporte_phone"></p>
+        </div>
+    </div>
+
+    <script>
+        const LANGUAGES = {
+            'es': 'Español',
+            'en': 'English',
+            'gl': 'Galego'
+        };
+
+        const translations = {
+            'es': {
+                title: "Estamos en obras",
+                reason: "Estamos realizando cambios en nuestros sistemas y página web. Volveremos lo antes posible.",
+                status: " ",
+                languageLabel: "Idioma",
+                contactTitle1: "Departamento de Atención al Cliente",
+                contactTitle2: "Soporte de Plataformas",
+                contactInfo: {
+                    general: 'clientes@ferreteriaelgreco.es',
+                    profesional: 'profesionales@ferreteriaelgreco.es',
+                    phone: '988 23 15 18',
+                    soporte: 'soporteplataformas@ferreteriaelgreco.es',
+                    soportePhone: '632 11 80 63'
+                },
+                labels: {
+                    general: "General:",
+                    profesional: "Profesionales:",
+                    phone: "Teléfono/WhatsApp:",
+                    email: "Email:",
+                    tel: "Teléfono:",
+                }
+            },
+            'en': {
+                title: "We are under maintenance",
+                reason: "We are making changes to our systems and website. We'll be back as soon as possible.",
+                status: " ",
+                languageLabel: "Language",
+                contactTitle1: "Customer Service Department",
+                contactTitle2: "Platform Support",
+                contactInfo: {
+                    general: 'clientes@ferreteriaelgreco.es',
+                    profesional: 'profesionales@ferreteriaelgreco.es',
+                    phone: '+34 988 23 15 18',
+                    soporte: 'soporteplataformas@ferreteriaelgreco.es',
+                    soportePhone: '+34 632 11 80 63'
+                },
+                labels: {
+                    general: "General:",
+                    profesional: "Professionals:",
+                    phone: "Phone/WhatsApp:",
+                    email: "Email:",
+                    tel: "Phone:",
+                }
+            },
+            'gl': {
+                title: "Estamos en obras",
+                reason: "Estamos a realizar cambios nos nosos sistemas e na web. Volveremos canto antes.",
+                status: " ",
+                languageLabel: "Idioma",
+                contactTitle1: "Departamento de Atención ao Cliente",
+                contactTitle2: "Soporte de Plataformas",
+                contactInfo: {
+                    general: 'clientes@ferreteriaelgreco.es',
+                    profesional: 'profesionales@ferreteriaelgreco.es',
+                    phone: '988 23 15 18',
+                    soporte: 'soporteplataformas@ferreteriaelgreco.es',
+                    soportePhone: '632 11 80 63'
+                },
+                labels: {
+                    general: "Xeral:",
+                    profesional: "Profesionais:",
+                    phone: "Teléfono/WhatsApp:",
+                    email: "Email:",
+                    tel: "Teléfono:",
+                }
+            }
+        };
+
+        function setLanguage(lang) {
+            document.getElementById('title').textContent = translations[lang].title;
+            document.getElementById('body_title').innerHTML = translations[lang].title;
+            document.getElementById('body').innerHTML = translations[lang].reason;
+            document.getElementById('status').textContent = translations[lang].status;
+            document.getElementById('contact_title_1').textContent = translations[lang].contactTitle1;
+            document.getElementById('contact_title_2').textContent = translations[lang].contactTitle2;
+            document.getElementById('contact_general').textContent = `${translations[lang].labels.general} ${translations[lang].contactInfo.general}`;
+            document.getElementById('contact_profesionales').textContent = `${translations[lang].labels.profesional} ${translations[lang].contactInfo.profesional}`;
+            document.getElementById('contact_phone').textContent = `${translations[lang].labels.phone} ${translations[lang].contactInfo.phone}`;
+            document.getElementById('contact_soporte_email').textContent = `${translations[lang].labels.email} ${translations[lang].contactInfo.soporte}`;
+            document.getElementById('contact_soporte_phone').textContent = `${translations[lang].labels.tel} ${translations[lang].contactInfo.soportePhone}`;
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+        }
+
+        function setLangLinks() {
+            const langLinks = document.getElementById('langLinks');
+            Object.keys(LANGUAGES).forEach(lang => {
+                const link = document.createElement('a');
+                link.href = "#";
+                link.textContent = LANGUAGES[lang];
+                link.className = 'dropdown-link';
+                link.onclick = () => {
+                    setLanguage(lang);
+                    document.querySelectorAll('.dropdown-link').forEach(link => link.classList.remove('active'));
+                    link.classList.add('active');
+                };
+                langLinks.appendChild(link);
+            });
+        }
+
+        window.onload = function() {
+            setLangLinks();
+            setLanguage('es');
+        };
+    </script>
+</body>
+</html>
